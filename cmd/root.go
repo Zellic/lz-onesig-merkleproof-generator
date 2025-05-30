@@ -70,30 +70,6 @@ LayerZero OneSig specification.`,
 					}
 				}
 			}
-		} else if len(batch.Transactions) > 0 {
-			// Legacy format: process individual transactions
-			for _, tx := range batch.Transactions {
-				// Skip transactions with no calls
-				if len(tx.Calls) == 0 {
-					continue
-				}
-
-				// Check if a leaf already exists for this nonce
-				if _, exists := nonceToLeaf[tx.Nonce]; !exists {
-					// Encode the leaf
-					leaf, err := utils.EncodeLeaf(oneSigID, contractAddr, tx.Nonce, tx.Calls)
-					if err != nil {
-						return fmt.Errorf("failed to encode leaf for transaction: %w", err)
-					}
-
-					leaves = append(leaves, leaf)
-					nonceToLeaf[tx.Nonce] = leaf
-					nonceToCalls[tx.Nonce] = tx.Calls
-				} else {
-					// Combine calls for the same nonce
-					nonceToCalls[tx.Nonce] = append(nonceToCalls[tx.Nonce], tx.Calls...)
-				}
-			}
 		} else {
 			return fmt.Errorf("transaction batch is empty")
 		}
