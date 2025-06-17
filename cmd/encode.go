@@ -176,5 +176,5 @@ func init() {
 
 	encodeCmd.Flags().IntVarP(&leafEncodingVersion, "leafEncodingVersion", "v", 1, "Specifies the encoding version to use for the leaves")
 	encodeCmd.Flags().BoolVar(&encodeSortedPairs, "sortedPairs", true, "Use sorted pairs when building the Merkle Tree (default: false, matching MerkleTreeJs)")
-	encodeCmd.Flags().BoolVar(&encodeSortLeaves, "sortLeaves", false, "Sort leaves before building the Merkle Tree (default: false, matching MerkleTreeJs)")
+	encodeCmd.Flags().BoolVar(&encodeSortLeaves, "sortLeaves", true, "Sort leaves before building the Merkle Tree (default: false, matching MerkleTreeJs)")
 }
